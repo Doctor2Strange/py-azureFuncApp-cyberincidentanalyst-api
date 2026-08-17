@@ -1,0 +1,67 @@
+For structured JSON:
+
+curl -sS \
+  --max-time 180 \
+  -X POST \
+  "https://${FUNCTION_HOST}/api/v1/security/analyze-alert" \
+  -H "x-functions-key: ${FUNCTION_KEY}" \
+  -H "Content-Type: application/json" \
+  -H "X-Correlation-ID: STRUCTURED-001" \
+  --data '{
+    "incident_id": "INC-001",
+    "task": "triage",
+    "alert": {
+      "title": "Word spawned PowerShell",
+      "severity": "high",
+      "events": [
+        {
+          "parent_process": "winword.exe",
+          "process": "powershell.exe"
+        }
+      ]
+    }
+  }' \
+  | jq
+
+
+
+
+
+
+For minimal JSON:
+
+
+
+
+curl -sS \
+  --max-time 180 \
+  -X POST \
+  "https://${FUNCTION_HOST}/api/v1/security/analyze-alert" \
+  -H "x-functions-key: ${FUNCTION_KEY}" \
+  -H "Content-Type: application/json" \
+  -H "X-Correlation-ID: GENERIC-001" \
+  --data '{
+    "message": "Microsoft Word launched PowerShell with an encoded command."
+  }' \
+  | jq
+
+
+
+
+
+
+free-form request:
+
+
+
+curl -sS \
+  --max-time 180 \
+  -X POST \
+  "https://${FUNCTION_HOST}/api/v1/security/analyze-alert" \
+  -H "x-functions-key: ${FUNCTION_KEY}" \
+  -H "Content-Type: text/plain" \
+  -H "X-Correlation-ID: TEXT-001" \
+  --data 'Analyze this synthetic event:
+Microsoft Word spawned powershell.exe with an encoded command.
+Return classification, confidence, summary, MITRE ATT&CK mappings, recommended investigation actions and limitations.' \
+  | jq

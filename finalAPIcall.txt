@@ -1,0 +1,35 @@
+cat > alert.json <<'EOF'
+{
+  "schema_version": "1.0",
+  "incident_id": "POC-INCIDENT-001",
+  "task": "triage",
+  "alert": {
+    "title": "Microsoft Word spawned encoded PowerShell",
+    "description": "Synthetic event for testing.",
+    "severity": "high",
+    "source": "synthetic-test",
+    "events": [
+      {
+        "event_type": "process_creation",
+        "parent_process": "winword.exe",
+        "process": "powershell.exe",
+        "command_line": "powershell.exe -EncodedCommand REDACTED"
+      }
+    ]
+  }
+}
+EOF
+
+
+
+
+
+
+curl -s \
+  -X POST \
+  "https://${FUNCTION_HOST}/api/v1/security/analyze-alert" \
+  -H "x-functions-key: ${FUNCTION_KEY}" \
+  -H "Content-Type: application/json" \
+  -H "X-Correlation-ID: POC-TEST-001" \
+  --data @alert.json \
+  | jq
