@@ -1,0 +1,2 @@
+# py-azureFuncApp-cyberincidentanalyst-api
+This repo consists of codes and configurations required to setup an API layer using Azure Function App developed in Python code to accept security incident information as prompts in structured JSON or unstructured plaintext format, analyze them using a backend LLM that impersonates a cybersecurity incident analyst to give structured JSON results.
