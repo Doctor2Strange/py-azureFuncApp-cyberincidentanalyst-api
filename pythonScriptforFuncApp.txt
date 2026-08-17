@@ -1,4 +1,4 @@
-cat > function_app.py <<'PYTHON'
+//cat > function_app.py <<'PYTHON'
 import json
 import os
 import uuid
@@ -264,4 +264,4 @@ def analyze_alert(
             "AI assessment is advisory and "
             "requires human analyst verification.",
     })
-PYTHON
+//PYTHON
